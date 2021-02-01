@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "529010651981",
+    "firebase_url": "https://sabbieparks.firebaseio.com",
+    "project_id": "sabbieparks",
+    "storage_bucket": "sabbieparks.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:529010651981:android:3eeff5a201305d664f3d04",
+        "android_client_info": {
+          "package_name": "app.parking.sabbieparks"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "529010651981-5tiogbd9h4jst0ibm4ok038snrn0174r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBrDjJeJCkVZ3QU6MRnVBloygWNGjRCVFw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "529010651981-5tiogbd9h4jst0ibm4ok038snrn0174r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

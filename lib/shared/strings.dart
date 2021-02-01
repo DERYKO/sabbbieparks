@@ -1,0 +1,14 @@
+String imagesPath = "assets/images";
+String appName = 'SabbieParks';
+String appIcon = "$imagesPath/logo-green.png";
+String icon = "$imagesPath/logo-icon-green.png";
+String smurf = "$imagesPath/smurf.png";
+String apiUrl = "http://159.89.88.97/api/v1";
+String appUrl = "http://159.89.88.97/storage/";
+String profile ="$imagesPath/profile.png";
+String client ="$imagesPath/candle.png";
+String airtel = "$imagesPath/airtel.png";
+String mpesa = "$imagesPath/mpesa.png";
+String creditCard = "$imagesPath/creditcard.jpeg";
+String userlocation = "$imagesPath/userlocation.png";
+String carpark = "$imagesPath/carpark.png";
