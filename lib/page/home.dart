@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart' hide Page;
 import 'package:flutter/material.dart' hide Page;
 import 'package:flutter/rendering.dart';
@@ -6,6 +7,8 @@ import 'package:sabbieparks/bloc/home_bloc.dart';
 import 'package:sabbieparks/shared/strings.dart';
 import 'package:sabbieparks/widgets/page.dart';
 import 'package:search_map_place/search_map_place.dart';
+
+import '../shared/strings.dart';
 
 class HomePage extends Page<HomeBloc> {
   @override
@@ -69,9 +72,13 @@ class HomePage extends Page<HomeBloc> {
                                   borderRadius: BorderRadius.circular(40.0),
                                   child: bloc.user != null &&
                                           bloc.user.avatar != null
-                                      ? Image.network(
-                                          appUrl + bloc.user.avatar,
+                                      ? CachedNetworkImage(
                                           height: 100,
+                                          imageUrl: appUrl + bloc.user.avatar,
+                                          placeholder: (context, url) =>
+                                              CircularProgressIndicator(),
+                                          errorWidget: (context, url, error) =>
+                                              Icon(Icons.error),
                                         )
                                       : Image.asset(
                                           profile,
