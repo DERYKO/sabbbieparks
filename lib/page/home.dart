@@ -4,6 +4,7 @@ import 'package:flutter/material.dart' hide Page;
 import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sabbieparks/bloc/home_bloc.dart';
+import 'package:sabbieparks/helpers/wallet_manager.dart';
 import 'package:sabbieparks/shared/strings.dart';
 import 'package:sabbieparks/widgets/page.dart';
 import 'package:search_map_place/search_map_place.dart';
@@ -75,8 +76,9 @@ class HomePage extends Page<HomeBloc> {
                                       ? CachedNetworkImage(
                                           height: 100,
                                           imageUrl: appUrl + bloc.user.avatar,
-                                          placeholder: (context, url) =>
-                                              CircularProgressIndicator(),
+                                          placeholder: (context, url) => Center(
+                                              child:
+                                                  CircularProgressIndicator()),
                                           errorWidget: (context, url, error) =>
                                               Icon(Icons.error),
                                         )
@@ -136,13 +138,17 @@ class HomePage extends Page<HomeBloc> {
                           size: 35.0,
                           color: Colors.green,
                         ),
-                        trailing: Text(
-                          '${bloc.wallet.balance} Kes',
-                          style: TextStyle(
-                              color: Colors.red,
-                              fontSize: 20.0,
-                              fontWeight: FontWeight.bold),
-                        ),
+                        trailing: StreamBuilder<Object>(
+                            stream: walletManager.stream,
+                            builder: (context, snapshot) {
+                              return Text(
+                                '${walletManager.balance ?? 0} Kes',
+                                style: TextStyle(
+                                    color: Colors.red,
+                                    fontSize: 20.0,
+                                    fontWeight: FontWeight.bold),
+                              );
+                            }),
                         title: Text('Wallet',
                             style:
                                 TextStyle(fontFamily: 'Nova', fontSize: 20.0)),

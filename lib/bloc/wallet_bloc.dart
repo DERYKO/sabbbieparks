@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart' hide Page;
 import 'package:sabbieparks/api/api.dart';
+import 'package:sabbieparks/helpers/wallet_manager.dart';
 import 'package:sabbieparks/widgets/bloc_provider.dart';
 
 class WalletBloc extends Bloc {
@@ -12,20 +13,7 @@ class WalletBloc extends Bloc {
   @override
   void initState() {
     super.initState();
-    getWalletBalance();
-  }
-
-  getWalletBalance() async {
-    try {
-      showLoader();
-      var response = await api.getWalletBalance();
-      balance = response.data['balance'];
-      date = response.data['created_at'];
-      showLoader(false);
-    } catch (e) {
-      showLoader(false);
-      print(e);
-    }
+    walletManager.getWalletBalance();
   }
 
   loadWallet() {
@@ -36,7 +24,7 @@ class WalletBloc extends Bloc {
             shape: RoundedRectangleBorder(
                 borderRadius: BorderRadius.circular(20.0)), //this right here
             child: Container(
-              height: MediaQuery.of(context).size.height/2,
+              height: MediaQuery.of(context).size.height / 3,
               child: Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: Column(
