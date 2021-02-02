@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Page;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sabbieparks/api/api.dart';
 import 'package:sabbieparks/bloc/booking_bloc.dart';

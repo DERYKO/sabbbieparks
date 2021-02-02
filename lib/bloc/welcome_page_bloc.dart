@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Page;
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:sabbieparks/api/api.dart';

@@ -1,10 +1,9 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Page;
 import 'package:sabbieparks/bloc/booking_list_bloc.dart';
 import 'package:sabbieparks/models/booking.dart';
 import 'package:sabbieparks/shared/strings.dart';
 import 'package:sabbieparks/widgets/page.dart';
 import 'package:flutter_countdown_timer/countdown_timer.dart';
-
 
 class BookingListPage extends Page<BookingListBloc> {
   @override
@@ -186,7 +185,8 @@ class BookingListPage extends Page<BookingListBloc> {
                           ),
                           CountdownTimer(
                             endTime: DateTime.parse(booking.created_at)
-                                .add(new Duration(minutes: booking.expiry_time)).millisecondsSinceEpoch,
+                                .add(new Duration(minutes: booking.expiry_time))
+                                .millisecondsSinceEpoch,
                             daysSymbol: " days ",
                           )
                         ],

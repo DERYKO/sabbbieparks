@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Page;
 import 'package:international_phone_input/international_phone_input.dart';
 import 'package:progress_dialog/progress_dialog.dart';
 import 'package:sabbieparks/bloc/login_bloc.dart';
@@ -13,7 +13,7 @@ class Login extends Page<LoginBloc> {
 
   void onPhoneNumberChange(
       String number, String internationalizedPhoneNumber, String isoCode) {
-      phoneNumber = internationalizedPhoneNumber;
+    phoneNumber = internationalizedPhoneNumber;
   }
 
   @override
@@ -109,7 +109,7 @@ class Login extends Page<LoginBloc> {
                                       IconButton(
                                         icon: Icon(Icons.forward, size: 32.0),
                                         onPressed: () {
-                                          if(phoneNumber!=null){
+                                          if (phoneNumber != null) {
                                             bloc.attemptLogin(phoneNumber);
                                           }
                                         },

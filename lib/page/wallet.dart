@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Page;
 import 'package:flutter/rendering.dart';
 import 'package:sabbieparks/bloc/wallet_bloc.dart';
 import 'package:sabbieparks/shared/strings.dart';

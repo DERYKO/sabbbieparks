@@ -1,5 +1,5 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart' hide Page;
+import 'package:flutter/material.dart' hide Page;
 import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sabbieparks/bloc/home_bloc.dart';
@@ -242,28 +242,34 @@ class HomePage extends Page<HomeBloc> {
                               SizedBox(width: 20.0),
                               Image.asset(
                                 smurf,
-                                height: 40,
+                                height: 30,
+                                width: 30,
                               ),
                               SizedBox(width: 10.0),
-                              Text(
-                                'How are you, ${bloc.user.firstName} ${bloc.user.lastName} ?',
-                                style: TextStyle(
-                                    fontSize: 23.0,
-                                    fontWeight: FontWeight.w600),
+                              Flexible(
+                                child: Text(
+                                  'Welcome, ${bloc.user.firstName} ${bloc.user.lastName} ?',
+                                  style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600),
+                                ),
                               )
                             ],
                           ),
-                          SearchMapPlaceWidget(
-                            apiKey: 'AIzaSyAwB-YqrFP1K_TdPNAJ_DapYcqC4v6FM58',
-                            language: 'en',
-                            location: bloc.latLng,
-                            radius: 30000,
-                            onSelected: (Place place) async {
-                              final geolocation = await place.geolocation;
-                              await bloc.setLatLng(geolocation.coordinates);
-                              await bloc.getSpots();
-                            },
-                            // YOUR GOOGLE MAPS API KEY
+                          SingleChildScrollView(
+                            child: SearchMapPlaceWidget(
+                              strictBounds: true,
+                              apiKey: 'AIzaSyAnRNSn36QJmZmcocAkuAcTjYG_NhmjoNQ',
+                              language: 'en',
+                              location: bloc.latLng,
+                              radius: 30000,
+                              onSelected: (Place place) async {
+                                final geolocation = await place.geolocation;
+                                await bloc.setLatLng(geolocation.coordinates);
+                                await bloc.getSpots();
+                              },
+                              // YOUR GOOGLE MAPS API KEY
+                            ),
                           )
                         ],
                       ),

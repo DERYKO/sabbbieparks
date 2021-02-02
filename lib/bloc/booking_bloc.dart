@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Page;
 import 'package:sabbieparks/api/api.dart';
 import 'package:sabbieparks/models/VehicleType.dart';
 import 'package:sabbieparks/models/spot.dart';
@@ -24,7 +24,7 @@ class BookingBloc extends Bloc {
   Future<void> initState() async {
     super.initState();
     await getParkingDetails();
-     await getVehicles();
+    await getVehicles();
     await getVehicleTypes();
     showLoader(false);
   }
@@ -35,8 +35,10 @@ class BookingBloc extends Bloc {
       try {
         showLoader();
         var response = await api.createVehicle(
-            selected.id, registrationNumberController.text,
-            colorController.text, modelTypeController.text);
+            selected.id,
+            registrationNumberController.text,
+            colorController.text,
+            modelTypeController.text);
         for (var i = 0; i < response.data.length; i++) {
           vehicles.add(Vehicle.fromJson(response.data[i]));
         }
@@ -47,28 +49,31 @@ class BookingBloc extends Bloc {
       }
     }
   }
-  getVehicleTypes() async{
+
+  getVehicleTypes() async {
     try {
       showLoader();
       var response = await api.getVehicleTypes();
-      for(var i = 0; i < response.data.length; i++){
+      for (var i = 0; i < response.data.length; i++) {
         types.add(VehicleType.fromJson(response.data[i]));
       }
     } catch (e) {
       showLoader(false);
     }
   }
-  getVehicles() async{
+
+  getVehicles() async {
     try {
       showLoader();
       var response = await api.getUserVehicles();
-      for(var i = 0; i < response.data.length; i++){
+      for (var i = 0; i < response.data.length; i++) {
         vehicles.add(Vehicle.fromJson(response.data[i]));
       }
     } catch (e) {
       showLoader(false);
     }
   }
+
   getParkingDetails() async {
     try {
       showLoader();
@@ -83,18 +88,21 @@ class BookingBloc extends Bloc {
     isLoading = loading;
     notifyChanges();
   }
+
   lipaNaMpesa() async {
-    if(userVehicle!=null){
+    if (userVehicle != null) {
       showLoader();
       try {
-        await api.lipaNaMpesa(userVehicle.id,spot.client.id,spot.id,spot.price.cost_price);
-        alert('Transaction', 'Transaction is being processed .. you will receive a notification on completion');
+        await api.lipaNaMpesa(
+            userVehicle.id, spot.client.id, spot.id, spot.price.cost_price);
+        alert('Transaction',
+            'Transaction is being processed .. you will receive a notification on completion');
         showLoader(false);
       } catch (e) {
         showLoader(false);
       }
-    }else{
-      alert('Error','Please specify a vehicle');
+    } else {
+      alert('Error', 'Please specify a vehicle');
     }
   }
 }

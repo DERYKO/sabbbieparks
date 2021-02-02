@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Page;
 import 'package:sabbieparks/api/api.dart';
 import 'package:sabbieparks/models/VehicleType.dart';
 import 'package:sabbieparks/models/vehicle.dart';

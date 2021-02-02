@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Page;
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:pin_entry_text_field/pin_entry_text_field.dart';
 import 'package:progress_dialog/progress_dialog.dart';

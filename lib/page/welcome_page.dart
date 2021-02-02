@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Page;
 import 'package:introduction_screen/introduction_screen.dart';
 import 'package:sabbieparks/bloc/welcome_page_bloc.dart';
 import 'package:sabbieparks/widgets/page.dart';

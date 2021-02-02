@@ -1,11 +1,13 @@
-import 'package:flutter/cupertino.dart';
-import 'package:flutter/material.dart';
+import 'package:flutter/cupertino.dart' hide Page;
 import 'package:flutter/rendering.dart';
 import 'package:sabbieparks/bloc/booking_bloc.dart';
 import 'package:sabbieparks/models/VehicleType.dart';
 import 'package:sabbieparks/models/vehicle.dart';
 import 'package:sabbieparks/shared/strings.dart';
 import 'package:sabbieparks/widgets/page.dart';
+
+import '../widgets/page.dart';
+import 'package:flutter/material.dart' hide Page;
 
 class BookingPage extends Page<BookingBloc> {
   @override

@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Page;
 import 'package:sabbieparks/bloc/notification_bloc.dart';
 import 'package:sabbieparks/models/notification.dart';
 import 'package:sabbieparks/widgets/page.dart';
@@ -58,9 +58,10 @@ class NotificationPage extends Page<NotificationBloc> {
                       size: 40.0,
                     ),
                     const SizedBox(height: 16),
-                    Text('No new notifications',style: TextStyle(
-                      fontSize: 22.0
-                    ),),
+                    Text(
+                      'No new notifications',
+                      style: TextStyle(fontSize: 22.0),
+                    ),
                     const SizedBox(height: 16),
                     InkWell(
                       child: Row(
@@ -98,8 +99,12 @@ class NotificationPage extends Page<NotificationBloc> {
                                       MainAxisAlignment.spaceBetween,
                                   children: <Widget>[
                                     Container(
-                                        width: MediaQuery.of(context).size.width * 0.75,
-                                        height: MediaQuery.of(context).size.height*0.05,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                0.75,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                0.05,
                                         child: Text('${notify.message}',
                                             style: TextStyle(
                                                 fontSize: 16.0,
@@ -108,16 +113,21 @@ class NotificationPage extends Page<NotificationBloc> {
                                       children: <Widget>[
                                         notify.read == 0
                                             ? Icon(
-                                          Icons.notifications_off,
-                                          size: 26.0,
-                                          color: Colors.grey,
-                                        )
+                                                Icons.notifications_off,
+                                                size: 26.0,
+                                                color: Colors.grey,
+                                              )
                                             : Icon(
-                                          Icons.notifications,
-                                          size: 26.0,
-                                          color: Colors.green,
-                                        ),
-                                        Text('${notify.date}',style: TextStyle(fontSize: 10.0,color: Colors.grey),)
+                                                Icons.notifications,
+                                                size: 26.0,
+                                                color: Colors.green,
+                                              ),
+                                        Text(
+                                          '${notify.date}',
+                                          style: TextStyle(
+                                              fontSize: 10.0,
+                                              color: Colors.grey),
+                                        )
                                       ],
                                     )
                                   ],

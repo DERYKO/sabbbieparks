@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Page;
 import 'package:sabbieparks/page/splash_page.dart';
 import 'package:sabbieparks/shared/strings.dart';
 import 'package:sabbieparks/utils/network_status.dart';

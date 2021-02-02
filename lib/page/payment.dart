@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Page;
 import 'package:flutter_credit_card/flutter_credit_card.dart';
 import 'package:sabbieparks/bloc/payment_bloc.dart';
 import 'package:sabbieparks/widgets/page.dart';

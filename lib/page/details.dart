@@ -1,19 +1,19 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/material.dart' hide Page hide Page;
 import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sabbieparks/bloc/detail.dart';
 import 'package:sabbieparks/shared/strings.dart';
 import 'package:sabbieparks/widgets/page.dart';
 
-class DetailPage extends Page<DetailBloc> {
+import '../widgets/page.dart';
 
+class DetailPage extends Page<DetailBloc> {
   Widget _buildIcon(int index) {
     return Container(
       height: 110.0,
       width: 100.0,
       decoration: BoxDecoration(
-          color: Colors.amber,
-          borderRadius: BorderRadius.circular(10.0)),
+          color: Colors.amber, borderRadius: BorderRadius.circular(10.0)),
       child: Column(
         children: <Widget>[
           Image.network(
@@ -22,13 +22,15 @@ class DetailPage extends Page<DetailBloc> {
             height: 100.0,
             fit: BoxFit.fill,
           ),
-          Text(bloc.spot.feature[index].security.name,style: TextStyle(
-            fontSize: 10.0
-          ),)
+          Text(
+            bloc.spot.feature[index].security.name,
+            style: TextStyle(fontSize: 10.0),
+          )
         ],
       ),
     );
   }
+
   @override
   Widget build(BuildContext context) {
     super.build(context);
@@ -105,7 +107,8 @@ class DetailPage extends Page<DetailBloc> {
                                       crossAxisAlignment:
                                           CrossAxisAlignment.start,
                                       children: <Widget>[
-                                        Text('${bloc.spot.client.name} - ${bloc.spot.parking_spot_code}',
+                                        Text(
+                                            '${bloc.spot.client.name} - ${bloc.spot.parking_spot_code}',
                                             style: TextStyle(
                                                 fontSize: 27.0,
                                                 fontWeight: FontWeight.bold)),
@@ -119,7 +122,7 @@ class DetailPage extends Page<DetailBloc> {
                                         SizedBox(
                                           height: 5.0,
                                         ),
-                                        Text(bloc.time + '/' +bloc.distance,
+                                        Text(bloc.time + '/' + bloc.distance,
                                             style: TextStyle(
                                                 fontSize: 22.0,
                                                 fontWeight: FontWeight.w300)),
@@ -137,10 +140,10 @@ class DetailPage extends Page<DetailBloc> {
                                     )
                                   ],
                                 ),
-                                Text(
-                                  '${bloc.spot.land_mark}'
+                                Text('${bloc.spot.land_mark}'),
+                                SizedBox(
+                                  height: 10,
                                 ),
-                                SizedBox(height: 10,),
                                 ButtonTheme(
                                   minWidth: 200.0,
                                   height: 50.0,
@@ -152,42 +155,57 @@ class DetailPage extends Page<DetailBloc> {
                                     child: Text(
                                       "Book this parking spot",
                                       style: TextStyle(
-                                          color: Colors.white,
-                                          fontSize: 20.0),
+                                          color: Colors.white, fontSize: 20.0),
                                     ),
                                   ),
                                 )
                               ],
                             )),
                       ),
-                      Text('Parking Features',style: TextStyle(fontSize: 22.0,fontWeight: FontWeight.bold),),
-                      SizedBox(height: 5.0,),
-                      bloc.spot.feature.length > 0 ? Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: bloc.spot.feature
-                            .asMap()
-                            .entries
-                            .map((MapEntry map) => _buildIcon(map.key))
-                            .toList(),
-                      ) : Row(
-                        crossAxisAlignment: CrossAxisAlignment.center,
-                        children: <Widget>[
-                          Text('No features specified.',style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.bold),)
-                        ],
+                      Text(
+                        'Parking Features',
+                        style: TextStyle(
+                            fontSize: 22.0, fontWeight: FontWeight.bold),
                       ),
+                      SizedBox(
+                        height: 5.0,
+                      ),
+                      bloc.spot.feature.length > 0
+                          ? Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: bloc.spot.feature
+                                  .asMap()
+                                  .entries
+                                  .map((MapEntry map) => _buildIcon(map.key))
+                                  .toList(),
+                            )
+                          : Row(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: <Widget>[
+                                Text(
+                                  'No features specified.',
+                                  style: TextStyle(
+                                      fontSize: 18.0,
+                                      fontWeight: FontWeight.bold),
+                                )
+                              ],
+                            ),
                       Container(
                         decoration: BoxDecoration(
-                          color: Colors.white70,
-                          border: Border.all(color: Colors.grey,width: 2.0,style: BorderStyle.solid)
-                        ),
+                            color: Colors.white70,
+                            border: Border.all(
+                                color: Colors.grey,
+                                width: 2.0,
+                                style: BorderStyle.solid)),
                         width: MediaQuery.of(context).size.width,
-                        height: MediaQuery.of(context).size.height/3,
+                        height: MediaQuery.of(context).size.height / 3,
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Container(
                               child: Icon(
-                                Icons.image,size: 32.0,
+                                Icons.image,
+                                size: 32.0,
                               ),
                             ),
                             Text('No Images')
