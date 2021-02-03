@@ -92,7 +92,7 @@ class HomePage extends Page<HomeBloc> {
                                 height: 10.0,
                               ),
                               Text(
-                                bloc.user.phoneNumber,
+                                bloc?.user?.phoneNumber ?? '',
                                 style: TextStyle(
                                     fontSize: 22.0,
                                     fontWeight: FontWeight.bold),
@@ -261,7 +261,7 @@ class HomePage extends Page<HomeBloc> {
                               SizedBox(width: 10.0),
                               Flexible(
                                 child: Text(
-                                  'Welcome, ${bloc.user.firstName} ${bloc.user.lastName} ?',
+                                  'Welcome, ${bloc?.user?.firstName ?? ''} ${bloc?.user?.lastName ?? ''} ?',
                                   style: TextStyle(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.w600),
