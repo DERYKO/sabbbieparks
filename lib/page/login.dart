@@ -34,7 +34,7 @@ class Login extends Page<LoginBloc> {
                             borderRadius: BorderRadius.only(
                                 bottomLeft: const Radius.circular(40.0),
                                 bottomRight: const Radius.circular(40.0)),
-                            color: Colors.amber,
+                            color: Colors.green,
                             boxShadow: [
                               BoxShadow(
                                   color: Colors.black26,
@@ -47,11 +47,12 @@ class Login extends Page<LoginBloc> {
                                 top: MediaQuery.of(context).size.width / 2),
                             child: Column(
                               children: <Widget>[
-                                Image.asset(icon, height: 100.0, width: 100.0),
+                                Image.asset(icon, height: 100.0, width: 100.0,color: Colors.white,),
                                 SizedBox(height: 10.0),
                                 Text(
-                                  'SabbieParks',
+                                  'IParks',
                                   style: TextStyle(
+                                      color: Colors.white,
                                       fontSize: 35.0,
                                       fontWeight: FontWeight.bold,
                                       letterSpacing: 1.2),

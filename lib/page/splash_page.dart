@@ -11,7 +11,7 @@ class SplashPage extends Page<SplashBloc> {
         child: Center(
           child: Hero(
               tag: "logo",
-              child: Image.asset(appIcon, height: 200.0, width: 200.0)),
+              child: Image.asset(icon, height: 200.0, width: 200.0)),
         ),
         width: double.infinity,
         height: double.infinity,
