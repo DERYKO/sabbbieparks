@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart' hide Page;
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -36,7 +37,6 @@ import 'package:sabbieparks/widgets/bloc_provider.dart';
 import 'login_bloc.dart';
 import 'package:sabbieparks/helpers/wallet_manager.dart';
 
-
 class HomeBloc extends Bloc {
   final FirebaseMessaging _fcm = FirebaseMessaging();
   final Set<Polyline> polyLines = {};
@@ -60,7 +60,6 @@ class HomeBloc extends Bloc {
   TextEditingController passwordController = TextEditingController();
   final dbHelper = DatabaseHelper.instance;
   int notificationCount;
-
 
   @override
   void initState() async {
@@ -301,100 +300,123 @@ class HomeBloc extends Bloc {
           //notifyChanges();
           drawerKey.currentState.removeCurrentSnackBar();
           return drawerKey.currentState.showSnackBar(new SnackBar(
+              duration: Duration(minutes: 2),
               backgroundColor: Colors.amber,
               content: Container(
-                height: MediaQuery.of(context).size.height / 5.5,
+                height: MediaQuery.of(context).size.height / 2,
                 width: MediaQuery.of(context).size.width,
-                decoration: BoxDecoration(color: Colors.white),
-                child: Row(
+                child: Column(
                   children: <Widget>[
-                    Card(
-                      color: Colors.white,
-                      elevation: 6.0,
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: <Widget>[
-                          spot['client']['logo'] != null
-                              ? Image.network(appUrl + spot['client']['logo'],
-                                  height:
-                                      MediaQuery.of(context).size.height / 8,
-                                  width: MediaQuery.of(context).size.width / 3)
-                              : Image.asset(
-                                  client,
-                                  height:
-                                      MediaQuery.of(context).size.height / 8,
-                                  width: MediaQuery.of(context).size.width / 3,
-                                ),
-                        ],
-                      ),
-                    ),
-                    Card(
-                      color: Colors.white,
-                      elevation: 6.0,
-                      child: Container(
-                        width: MediaQuery.of(context).size.width / 2,
-                        child: Column(
-                          children: <Widget>[
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Text(
+                    Expanded(
+                      flex: 6,
+                      child: Card(
+                        color: Colors.white,
+                        elevation: 6.0,
+                        child: Container(
+                          padding:
+                              EdgeInsets.symmetric(vertical: 4, horizontal: 4),
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: <Widget>[
+                              Expanded(
+                                child: Text(
                                   spot['client']['name'],
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
                                       fontSize: 20.0,
                                       color: Colors.blueGrey),
+                                  maxLines: 2,
                                 ),
-                                ButtonTheme(
-                                  height: 10.0,
-                                  child: RaisedButton(
-                                    color: Colors.green,
-                                    onPressed: () {
-                                      toDetails(spot['id']);
-                                    },
-                                    child: Text(
-                                      "Details",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20.0),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              spot['client']['logo'] != null
+                                  ? Image.network(
+                                      appUrl + spot['client']['logo'],
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              8,
+                                      width: double.infinity)
+                                  : Image.asset(
+                                      client,
+                                      height:
+                                          MediaQuery.of(context).size.height /
+                                              8,
+                                      width: MediaQuery.of(context).size.width,
                                     ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              ButtonTheme(
+                                height: 30.0,
+                                child: RaisedButton(
+                                  color: Colors.green,
+                                  onPressed: () {
+                                    toDetails(spot['id']);
+                                  },
+                                  child: Text(
+                                    "Details",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20),
                                   ),
-                                )
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: <Widget>[
-                                Text(
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    Expanded(
+                      flex: 4,
+                      child: Card(
+                        color: Colors.white,
+                        elevation: 6.0,
+                        child: Container(
+                          width: MediaQuery.of(context).size.width,
+                          child: Column(
+                            children: <Widget>[
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Center(
+                                child: Text(
                                   'Parking Price is ${spot['pricing']['cost_price']} Kes',
                                   style: TextStyle(
                                       fontWeight: FontWeight.w600,
-                                      fontSize: 18.0,
+                                      fontSize: 14.0,
                                       color: Colors.blueGrey),
                                 ),
-                              ],
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                ButtonTheme(
-                                  height: 30.0,
-                                  minWidth:
-                                      MediaQuery.of(context).size.width * 1 / 8,
-                                  child: RaisedButton(
-                                    color: Colors.green,
-                                    onPressed: () {
-                                      toBooking(spot['id']);
-                                    },
-                                    child: Text(
-                                      "Book this spot",
-                                      style: TextStyle(
-                                          color: Colors.white, fontSize: 20.0),
+                              ),
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: <Widget>[
+                                  ButtonTheme(
+                                    height: 30.0,
+                                    minWidth:
+                                        MediaQuery.of(context).size.width *
+                                            1 /
+                                            8,
+                                    child: RaisedButton(
+                                      color: Colors.green,
+                                      onPressed: () {
+                                        toBooking(spot['id']);
+                                      },
+                                      child: Text(
+                                        "Book this spot",
+                                        style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 20.0),
+                                      ),
                                     ),
-                                  ),
-                                )
-                              ],
-                            ),
-                          ],
+                                  )
+                                ],
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                     ),

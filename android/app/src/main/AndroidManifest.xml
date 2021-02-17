@@ -14,7 +14,7 @@
     <uses-feature android:name="android.hardware.camera.autofocus" />
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="sabbieparks"
+        android:label="I Park"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

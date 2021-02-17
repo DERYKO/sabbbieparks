@@ -28,16 +28,17 @@ class WelcomeBloc extends Bloc {
     );
   }
 
-  void onDone() async{
+  void onDone() async {
     if (loginFormKey.currentState.validate()) {
-      try{
-        ProgressDialog pr= new ProgressDialog(context);
-        pr.show();
-       await api.updateProfile(titleController.text, firstNameController.text,
+      ProgressDialog pr = new ProgressDialog(context);
+      pr.show();
+      try {
+        await api.updateProfile(titleController.text, firstNameController.text,
             lastNameController.text, emailController.text);
-       pr.hide();
+        pr.hide();
         popAndNavigate(page: HomePage(), bloc: HomeBloc());
-      }catch(e){
+      } catch (e) {
+        pr.hide();
         print(e.response);
         alert('Profile', 'Authentication error!!');
       }
