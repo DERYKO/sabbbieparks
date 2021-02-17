@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart' hide Page;
 import 'package:sabbieparks/api/api.dart';
+import 'package:sabbieparks/dialogs/add_new_vehicle_dialog.dart';
 import 'package:sabbieparks/models/VehicleType.dart';
 import 'package:sabbieparks/models/spot.dart';
 import 'package:sabbieparks/models/vehicle.dart';
@@ -104,5 +105,27 @@ class BookingBloc extends Bloc {
     } else {
       alert('Error', 'Please specify a vehicle');
     }
+  }
+
+  addVehicle() async {
+    var data = await showAddNewVehicle(context, types: types);
+    if (data != null) {
+      try {
+        showLoader();
+        vehicles = [];
+        selected = null;
+        var response = await api.createVehicle(data["vehicleType"],
+            data["regNumber"], data["color"], data["model"]);
+        for (var i = 0; i < response.data.length; i++) {
+          vehicles.add(Vehicle.fromJson(response.data[i]));
+        }
+        notifyChanges();
+        showLoader(false);
+      } catch (e) {
+        print(e);
+        showLoader(false);
+      }
+    }
+    print(data);
   }
 }

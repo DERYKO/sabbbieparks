@@ -50,158 +50,37 @@ class BookingPage extends Page<BookingBloc> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.start,
                       children: <Widget>[
-                        bloc.vehicles.length > 0
-                            ? Container(
-                                width:
-                                    MediaQuery.of(context).size.width * 3 / 4,
-                                child: new DropdownButton<Vehicle>(
-                                  value: bloc.userVehicle,
-                                  isExpanded: true,
-                                  hint: new Text("Select a vehicle"),
-                                  items: bloc.vehicles.map((Vehicle vehicle) {
-                                    return new DropdownMenuItem<Vehicle>(
-                                      value: vehicle,
-                                      child: new Text(
-                                          "${vehicle.vehicleType.name} - ${vehicle.model_type} - ${vehicle.registration_no}"),
-                                    );
-                                  }).toList(),
-                                  onChanged: (Vehicle vehicle) {
-                                    bloc.userVehicle = vehicle;
-                                  },
-                                ),
-                              )
-                            : Container(
-                                child: Column(
-                                  children: <Widget>[
-                                    Form(
-                                      key: bloc.loginFormKey,
-                                      child: Container(
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                3 /
-                                                4,
-                                        child: Column(
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.center,
-                                          children: <Widget>[
-                                            new DropdownButton<VehicleType>(
-                                              value: bloc.selected,
-                                              isExpanded: true,
-                                              hint: new Text(
-                                                  "Select a car category"),
-                                              items: bloc.types
-                                                  .map((VehicleType type) {
-                                                return new DropdownMenuItem<
-                                                    VehicleType>(
-                                                  value: type,
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: <Widget>[
-                                                      SizedBox(
-                                                        height: 50,
-                                                        width: 50,
-                                                        child: Image.network(
-                                                          appUrl + type.icon,
-                                                          height: 100,
-                                                        ),
-                                                      ),
-                                                      Text(
-                                                        "${type.name}",
-                                                        style: TextStyle(
-                                                            fontSize: 20.0),
-                                                      )
-                                                    ],
-                                                  ),
-                                                );
-                                              }).toList(),
-                                              onChanged: (VehicleType type) {
-                                                bloc.selected = type;
-                                              },
-                                            ),
-                                            TextFormField(
-                                              controller: bloc
-                                                  .registrationNumberController,
-                                              keyboardType:
-                                                  TextInputType.emailAddress,
-                                              autofocus: true,
-                                              onFieldSubmitted: (value) {},
-                                              validator: (value) {
-                                                if (value.isEmpty)
-                                                  return 'Registration number is required';
-                                                else
-                                                  return null;
-                                              },
-                                              decoration: InputDecoration(
-                                                labelText:
-                                                    "Registration Number",
-                                                hintText: "KAZ 342T",
-                                              ),
-                                            ),
-                                            const SizedBox(height: 16.0),
-                                            TextFormField(
-                                              controller:
-                                                  bloc.modelTypeController,
-                                              keyboardType:
-                                                  TextInputType.emailAddress,
-                                              autofocus: true,
-                                              onFieldSubmitted: (value) {},
-                                              validator: (value) {
-                                                if (value.isEmpty)
-                                                  return 'Model type is required';
-                                                else
-                                                  return null;
-                                              },
-                                              decoration: InputDecoration(
-                                                labelText: "Model",
-                                                hintText: "Isuzu",
-                                              ),
-                                            ),
-                                            const SizedBox(height: 16.0),
-                                            TextFormField(
-                                              controller: bloc.colorController,
-                                              keyboardType:
-                                                  TextInputType.emailAddress,
-                                              autofocus: true,
-                                              onFieldSubmitted: (value) {},
-                                              validator: (value) {
-                                                if (value.isEmpty)
-                                                  return 'Color is required';
-                                                else
-                                                  return null;
-                                              },
-                                              decoration: InputDecoration(
-                                                labelText: "Color",
-                                                hintText: "Black",
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      ),
-                                    ),
-                                    SizedBox(
-                                      height: 10.0,
-                                    ),
-                                    ButtonTheme(
-                                      minWidth: 200.0,
-                                      height: 50.0,
-                                      child: RaisedButton(
-                                        color: Colors.green,
-                                        onPressed: () {
-                                          bloc.createVehicle();
-                                        },
-                                        child: Text(
-                                          "Add Vehicle",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 20.0),
-                                        ),
-                                      ),
-                                    )
-                                  ],
-                                ),
-                              ),
+                        Container(
+                          width: MediaQuery.of(context).size.width * 3 / 4,
+                          child: new DropdownButton<Vehicle>(
+                            value: bloc.userVehicle,
+                            isExpanded: true,
+                            hint: new Text("Select a vehicle"),
+                            items: bloc.vehicles.map((Vehicle vehicle) {
+                              return new DropdownMenuItem<Vehicle>(
+                                value: vehicle,
+                                child: new Text(
+                                    "${vehicle.vehicleType.name} - ${vehicle.model_type} - ${vehicle.registration_no}"),
+                              );
+                            }).toList(),
+                            onChanged: (Vehicle vehicle) {
+                              bloc.userVehicle = vehicle;
+                            },
+                          ),
+                        ),
+                        ButtonTheme(
+                          minWidth: 200.0,
+                          height: 50.0,
+                          child: RaisedButton(
+                            color: Colors.green,
+                            onPressed: bloc.addVehicle,
+                            child: Text(
+                              "Add Vehicle",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 20.0),
+                            ),
+                          ),
+                        ),
                         IconButton(
                           padding: EdgeInsets.all(5.0),
                           icon: Image.asset(mpesa),
