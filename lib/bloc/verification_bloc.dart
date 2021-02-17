@@ -19,7 +19,7 @@ class VerificationBloc extends Bloc {
 
   attemptVerification(String code, String phone) async {
     try {
-      ProgressDialog pr= new ProgressDialog(context);
+      ProgressDialog pr = new ProgressDialog(context);
       pr.show();
       Response response = await api.verifyCode(phone, code);
       pr.dismiss();
@@ -30,9 +30,10 @@ class VerificationBloc extends Bloc {
         popAndNavigate(page: HomePage(), bloc: HomeBloc());
       }
     } catch (e) {
+      print('******************8ERROR***********************');
+      print(e);
       alert("Unsuccessful", 'We could not validate the code provided!');
     }
-
   }
 
   setCode(String code) {

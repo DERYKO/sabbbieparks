@@ -18,6 +18,8 @@ class DioApi {
   }
 
   _requestIntercept(RequestOptions options) async {
+    print(options.path);
+    print(options.data);
     prefs = await SharedPreferences.getInstance();
     String loggedIn = prefs.getString('token');
     if (loggedIn != null) {
@@ -25,9 +27,13 @@ class DioApi {
     }
     return options;
   }
+
   _responseIntercept(Response response) async {
+    print(response.request.path);
+    print(response.data);
     return response;
   }
+
   _errorIntercept(DioError error) async {
     return error;
   }
