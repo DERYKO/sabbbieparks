@@ -74,23 +74,6 @@ class WelcomeBloc extends Bloc {
                 children: <Widget>[
                   _buildImage(appIcon),
                   TextFormField(
-                    controller: titleController,
-                    keyboardType: TextInputType.emailAddress,
-                    autofocus: true,
-                    onFieldSubmitted: (value) {},
-                    validator: (value) {
-                      if (value.isEmpty)
-                        return 'Title is required';
-                      else
-                        return null;
-                    },
-                    decoration: InputDecoration(
-                      labelText: "Title",
-                      hintText: "Mr/Mrs",
-                    ),
-                  ),
-                  const SizedBox(height: 16.0),
-                  TextFormField(
                     controller: firstNameController,
                     keyboardType: TextInputType.emailAddress,
                     autofocus: true,

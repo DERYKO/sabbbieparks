@@ -34,6 +34,8 @@ import 'package:sabbieparks/shared/strings.dart';
 import 'package:sabbieparks/tools/auth_manager.dart';
 import 'package:sabbieparks/widgets/bloc_provider.dart';
 import 'login_bloc.dart';
+import 'package:sabbieparks/helpers/wallet_manager.dart';
+
 
 class HomeBloc extends Bloc {
   final FirebaseMessaging _fcm = FirebaseMessaging();
@@ -59,6 +61,7 @@ class HomeBloc extends Bloc {
   final dbHelper = DatabaseHelper.instance;
   int notificationCount;
 
+
   @override
   void initState() async {
     super.initState();
@@ -74,6 +77,7 @@ class HomeBloc extends Bloc {
           'read': 0,
           'date': DateTime.now().toString().split(".")[0]
         };
+        walletManager.getWalletBalance();
         await dbHelper.insert(row);
         notificationCount = await dbHelper.queryRowCount();
         notifyChanges();
@@ -94,12 +98,10 @@ class HomeBloc extends Bloc {
         );
       },
       onLaunch: (Map<String, dynamic> message) async {
-        print("onLaunch: $message");
-        // TODO optional
+        walletManager.getWalletBalance();
       },
       onResume: (Map<String, dynamic> message) async {
-        print("onResume: $message");
-        // TODO optional
+        walletManager.getWalletBalance();
       },
     );
   }
