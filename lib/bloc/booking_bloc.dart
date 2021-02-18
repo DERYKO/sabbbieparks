@@ -30,6 +30,11 @@ class BookingBloc extends Bloc {
     showLoader(false);
   }
 
+  selectVehicle({Vehicle vehicle}) {
+    userVehicle = vehicle;
+    notifyChanges();
+  }
+
   BookingBloc(this.spot_id);
   createVehicle() async {
     if (loginFormKey.currentState.validate()) {

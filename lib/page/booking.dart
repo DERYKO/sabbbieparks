@@ -64,7 +64,7 @@ class BookingPage extends Page<BookingBloc> {
                               );
                             }).toList(),
                             onChanged: (Vehicle vehicle) {
-                              bloc.userVehicle = vehicle;
+                              bloc.selectVehicle(vehicle: vehicle);
                             },
                           ),
                         ),
