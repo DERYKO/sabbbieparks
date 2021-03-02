@@ -10,10 +10,11 @@ import 'package:sabbieparks/models/vehicle.dart';
 import 'package:sabbieparks/widgets/bloc_provider.dart';
 
 class BookingBloc extends Bloc {
-  final GlobalKey<FormState> loginFormKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> bookingFormKey = GlobalKey<FormState>();
   TextEditingController registrationNumberController = TextEditingController();
   TextEditingController modelTypeController = TextEditingController();
   TextEditingController colorController = TextEditingController();
+  TextEditingController reserveDateController = TextEditingController();
   int spot_id;
   Spot spot;
   bool isLoading = false;
@@ -21,6 +22,8 @@ class BookingBloc extends Bloc {
   List<VehicleType> types = [];
   VehicleType selected;
   Vehicle userVehicle;
+  String radioValue = "booking"; //booking, reserved
+  DateTime reservationDate;
 
   @override
   Future<void> initState() async {
@@ -38,17 +41,22 @@ class BookingBloc extends Bloc {
 
   BookingBloc(this.spot_id);
   createVehicle() async {
-    if (loginFormKey.currentState.validate()) {
+    if (bookingFormKey.currentState.validate()) {
       try {
         showLoader();
-        var response = await api.createVehicle(
-            selected.id,
-            registrationNumberController.text,
-            colorController.text,
-            modelTypeController.text);
-        for (var i = 0; i < response.data.length; i++) {
-          vehicles.add(Vehicle.fromJson(response.data[i]));
+        if (radioValue == "reserved") {
+          // call reserved api
+        } else {
+          var response = await api.createVehicle(
+              selected.id,
+              registrationNumberController.text,
+              colorController.text,
+              modelTypeController.text);
+          for (var i = 0; i < response.data.length; i++) {
+            vehicles.add(Vehicle.fromJson(response.data[i]));
+          }
         }
+
         showLoader(false);
       } catch (e) {
         print(e);
@@ -95,11 +103,13 @@ class BookingBloc extends Bloc {
     isLoading = loading;
     notifyChanges();
   }
-  lipaNaWallet() async{
+
+  lipaNaWallet() async {
     if (userVehicle != null) {
       showLoader();
       try {
-        var response  = await api.lipaNaWallet(userVehicle.id, spot.client.id, spot.id, spot.price.cost_price);
+        var response = await api.lipaNaWallet(
+            userVehicle.id, spot.client.id, spot.id, spot.price.cost_price);
         walletManager.getWalletBalance();
         alert('Success', response.data.message);
         showLoader(false);
@@ -147,6 +157,31 @@ class BookingBloc extends Bloc {
         showLoader(false);
       }
     }
-    print(data);
+  }
+
+  selectDate() async {
+    Future<DateTime> selectedDate = showDatePicker(
+      context: context,
+      initialDate: DateTime.now(),
+      firstDate: DateTime(2018),
+      lastDate: DateTime(2030),
+      builder: (BuildContext context, Widget child) {
+        return Theme(
+          data: ThemeData.dark(),
+          child: child,
+        );
+      },
+    );
+    await selectedDate.then((DateTime date) {
+      if (date != null) {
+        reservationDate = date;
+        reserveDateController.text = date.toString();
+      }
+    });
+  }
+
+  onRadioChanged({String newValue}) {
+    radioValue = newValue;
+    notifyChanges();
   }
 }

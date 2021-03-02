@@ -48,89 +48,173 @@ class BookingPage extends Page<BookingBloc> {
                   body: Container(
                     height: MediaQuery.of(context).size.height,
                     width: MediaQuery.of(context).size.width,
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.start,
-                      children: <Widget>[
-                        Container(
-                          width: MediaQuery.of(context).size.width * 3 / 4,
-                          child: new DropdownButton<Vehicle>(
-                            value: bloc.userVehicle,
-                            isExpanded: true,
-                            hint: new Text("Select a vehicle"),
-                            items: bloc.vehicles.map((Vehicle vehicle) {
-                              return new DropdownMenuItem<Vehicle>(
-                                value: vehicle,
-                                child: new Text(
-                                    "${vehicle.vehicleType.name} - ${vehicle.model_type} - ${vehicle.registration_no}"),
-                              );
-                            }).toList(),
-                            onChanged: (Vehicle vehicle) {
-                              bloc.selectVehicle(vehicle: vehicle);
-                            },
+                    padding: EdgeInsets.symmetric(horizontal: 20),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 5),
+                      child: Form(
+                        key: bloc.bookingFormKey,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.start,
+                            children: <Widget>[
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Radio(
+                                        value: "booking",
+                                        onChanged: (value) {
+                                          bloc.onRadioChanged(newValue: value);
+                                        },
+                                        groupValue: bloc.radioValue,
+                                      ),
+                                      Text("Book")
+                                    ],
+                                  ),
+                                  SizedBox(
+                                    width: 10,
+                                  ),
+                                  Row(
+                                    children: [
+                                      Radio(
+                                        value: "reserved",
+                                        onChanged: (value) {
+                                          bloc.onRadioChanged(newValue: value);
+                                        },
+                                        groupValue: bloc.radioValue,
+                                      ),
+                                      Text("Reserve")
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              Visibility(
+                                visible: bloc.radioValue == "reserved",
+                                child: Column(
+                                  children: [
+                                    GestureDetector(
+                                      onTap: bloc.selectDate,
+                                      child: AbsorbPointer(
+                                        child: TextFormField(
+                                          controller:
+                                              bloc.reserveDateController,
+                                          validator: (value) {
+                                            if (value.isEmpty &&
+                                                bloc.radioValue == "reserved")
+                                              return 'Reservation date is required';
+                                            else
+                                              return null;
+                                          },
+                                          decoration: InputDecoration(
+                                            labelText: "Select Date",
+                                            hintText: "Reservation date",
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              Container(
+                                child: new DropdownButton<Vehicle>(
+                                  value: bloc.userVehicle,
+                                  isExpanded: true,
+                                  hint: new Text("Select a vehicle"),
+                                  items: bloc.vehicles.map((Vehicle vehicle) {
+                                    return new DropdownMenuItem<Vehicle>(
+                                      value: vehicle,
+                                      child: new Text(
+                                          "${vehicle.vehicleType.name} - ${vehicle.model_type} - ${vehicle.registration_no}"),
+                                    );
+                                  }).toList(),
+                                  onChanged: (Vehicle vehicle) {
+                                    bloc.selectVehicle(vehicle: vehicle);
+                                  },
+                                ),
+                              ),
+                              ButtonTheme(
+                                minWidth: 200.0,
+                                height: 30.0,
+                                child: RaisedButton(
+                                  color: Colors.green,
+                                  onPressed: bloc.addVehicle,
+                                  child: Text(
+                                    "Add Vehicle",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20.0),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              Text(
+                                'Want to book parking spot ${bloc.spot.parking_spot_code} ?',
+                                style: TextStyle(
+                                    fontSize: 16.0,
+                                    fontWeight: FontWeight.w700),
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              ButtonTheme(
+                                minWidth: 200.0,
+                                height: 50.0,
+                                child: RaisedButton(
+                                  color: Colors.green,
+                                  onPressed: () {
+                                    bloc.lipaNaMpesa();
+                                  },
+                                  child: Text(
+                                    "Pay ${bloc.spot.price.cost_price} Kes with Mpesa",
+                                    style: TextStyle(
+                                        color: Colors.white, fontSize: 20.0),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 5,
+                              ),
+                              bloc.spot.price.cost_price <=
+                                      walletManager?.balance
+                                  ? Column(
+                                      children: [
+                                        Text(
+                                          "OR",
+                                          style: TextStyle(
+                                              color: Colors.black26,
+                                              fontSize: 20.0),
+                                        ),
+                                        SizedBox(
+                                          height: 5,
+                                        ),
+                                        ButtonTheme(
+                                          minWidth: 200.0,
+                                          height: 50.0,
+                                          child: RaisedButton(
+                                            color: Colors.brown,
+                                            onPressed: () {
+                                              bloc.lipaNaWallet();
+                                            },
+                                            child: Text(
+                                              "Deduct ${bloc.spot.price.cost_price} Kes from wallet",
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 20.0),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    )
+                                  : Container()
+                            ],
                           ),
                         ),
-                        ButtonTheme(
-                          minWidth: 200.0,
-                          height: 30.0,
-                          child: RaisedButton(
-                            color: Colors.green,
-                            onPressed: bloc.addVehicle,
-                            child: Text(
-                              "Add Vehicle",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20.0),
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        Text(
-                          'Want to book parking spot ${bloc.spot.parking_spot_code} ?',
-                          style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.w700),
-                        ),
-                        SizedBox(
-                          height: 20.0,
-                        ),
-                        ButtonTheme(
-                          minWidth: 200.0,
-                          height: 50.0,
-                          child: RaisedButton(
-                            color: Colors.green,
-                            onPressed: () {
-                              bloc.lipaNaMpesa();
-                            },
-                            child: Text(
-                              "Pay ${bloc.spot.price.cost_price} Kes with Mpesa",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20.0),
-                            ),
-                          ),
-                        ),
-                        SizedBox(height: 5,),
-                        Text(
-                          "OR",
-                          style: TextStyle(
-                              color: Colors.black26, fontSize: 20.0),
-                        ),
-                        SizedBox(height: 5,),
-                        bloc.spot.price.cost_price <= walletManager.balance ? ButtonTheme(
-                          minWidth: 200.0,
-                          height: 50.0,
-                          child: RaisedButton(
-                            color: Colors.brown,
-                            onPressed: () {
-                              bloc.lipaNaWallet();
-                            },
-                            child: Text(
-                              "Deduct ${bloc.spot.price.cost_price} Kes from wallet",
-                              style: TextStyle(
-                                  color: Colors.white, fontSize: 20.0),
-                            ),
-                          ),
-                        ) : null
-                      ],
+                      ),
                     ),
                   ),
                 );
