@@ -13,17 +13,16 @@ class BookingListBloc extends Bloc {
   }
 
   getBookings(DateTime dateTime) async {
-    showLoader();
-    try{
-      bookings = [];
+    try {
+      showLoader();
       var response = await api.getBookings(dateTime);
-      print(response);
-      for(var i = 0; i < response.data.length; i++){
+      bookings = [];
+      for (var i = 0; i < response.data.length; i++) {
         bookings.add(Booking.fromJson(response.data[i]));
       }
       showLoader(false);
-    }catch(e){
-     showLoader(false);
+    } catch (e) {
+      print(e);
     }
   }
   showLoader([bool loading = true]) {

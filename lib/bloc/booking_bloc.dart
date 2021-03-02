@@ -3,6 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart' hide Page;
 import 'package:sabbieparks/api/api.dart';
 import 'package:sabbieparks/dialogs/add_new_vehicle_dialog.dart';
+import 'package:sabbieparks/helpers/wallet_manager.dart';
 import 'package:sabbieparks/models/VehicleType.dart';
 import 'package:sabbieparks/models/spot.dart';
 import 'package:sabbieparks/models/vehicle.dart';
@@ -93,6 +94,21 @@ class BookingBloc extends Bloc {
   showLoader([bool loading = true]) {
     isLoading = loading;
     notifyChanges();
+  }
+  lipaNaWallet() async{
+    if (userVehicle != null) {
+      showLoader();
+      try {
+        var response  = await api.lipaNaWallet(userVehicle.id, spot.client.id, spot.id, spot.price.cost_price);
+        walletManager.getWalletBalance();
+        alert('Success', response.data.message);
+        showLoader(false);
+      } catch (e) {
+        showLoader(false);
+      }
+    } else {
+      alert('Error', 'Please specify a vehicle');
+    }
   }
 
   lipaNaMpesa() async {

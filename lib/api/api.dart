@@ -47,6 +47,16 @@ class Api extends DioApi {
     });
   }
 
+  Future lipaNaWallet(
+      int user_vehicle_id, int client_id, int parking_spot_id, int amount) {
+    return dio.get('/lipa-na-wallet', queryParameters: {
+      "user_vehicle_id": user_vehicle_id,
+      "amount": amount,
+      "client_id": client_id,
+      "parking_spot_id": parking_spot_id
+    });
+  }
+
   Future getUserVehicles() {
     return dio.get('/vehicle');
   }

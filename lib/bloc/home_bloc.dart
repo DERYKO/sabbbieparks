@@ -14,6 +14,7 @@ import 'package:sabbieparks/bloc/detail.dart';
 import 'package:sabbieparks/bloc/notification_bloc.dart';
 import 'package:sabbieparks/bloc/payment_bloc.dart';
 import 'package:sabbieparks/bloc/reservation_bloc.dart';
+import 'package:sabbieparks/bloc/settings_bloc.dart';
 import 'package:sabbieparks/bloc/vehicle_bloc.dart';
 import 'package:sabbieparks/bloc/wallet_bloc.dart';
 import 'package:sabbieparks/database/database_helper.dart';
@@ -29,6 +30,7 @@ import 'package:sabbieparks/page/notification.dart';
 import 'package:sabbieparks/page/payment.dart';
 import 'package:sabbieparks/page/profile.dart';
 import 'package:sabbieparks/page/reservation.dart';
+import 'package:sabbieparks/page/settings.dart';
 import 'package:sabbieparks/page/vehicle.dart';
 import 'package:sabbieparks/page/wallet.dart';
 import 'package:sabbieparks/shared/strings.dart';
@@ -442,6 +444,9 @@ class HomeBloc extends Bloc {
 
   toBooking(int id) {
     navigate(page: BookingPage(), bloc: BookingBloc(id));
+  }
+  toSettings() {
+    navigate(page: Settings(), bloc: SettingsBloc());
   }
 
   getUserProfile() async {

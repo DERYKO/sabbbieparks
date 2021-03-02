@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart' hide Page;
 import 'package:flutter/rendering.dart';
 import 'package:sabbieparks/bloc/booking_bloc.dart';
+import 'package:sabbieparks/helpers/wallet_manager.dart';
 import 'package:sabbieparks/models/VehicleType.dart';
 import 'package:sabbieparks/models/vehicle.dart';
 import 'package:sabbieparks/shared/strings.dart';
@@ -70,7 +71,7 @@ class BookingPage extends Page<BookingBloc> {
                         ),
                         ButtonTheme(
                           minWidth: 200.0,
-                          height: 50.0,
+                          height: 30.0,
                           child: RaisedButton(
                             color: Colors.green,
                             onPressed: bloc.addVehicle,
@@ -81,35 +82,16 @@ class BookingPage extends Page<BookingBloc> {
                             ),
                           ),
                         ),
-                        IconButton(
-                          padding: EdgeInsets.all(5.0),
-                          icon: Image.asset(mpesa),
-                          iconSize: 200,
-                          onPressed: () {},
+                        SizedBox(
+                          height: 20.0,
                         ),
                         Text(
-                          'Pay ${bloc.spot.price.cost_price} Kes via Mpesa',
+                          'Want to book parking spot ${bloc.spot.parking_spot_code} ?',
                           style: TextStyle(
-                              fontSize: 23.0, fontWeight: FontWeight.w900),
+                              fontSize: 16.0, fontWeight: FontWeight.w700),
                         ),
                         SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(
-                          '&',
-                          style: TextStyle(
-                              fontSize: 23.0, fontWeight: FontWeight.w500),
-                        ),
-                        SizedBox(
-                          height: 10.0,
-                        ),
-                        Text(
-                          'Book Parking ${bloc.spot.parking_spot_code}',
-                          style: TextStyle(
-                              fontSize: 23.0, fontWeight: FontWeight.w700),
-                        ),
-                        SizedBox(
-                          height: 40.0,
+                          height: 20.0,
                         ),
                         ButtonTheme(
                           minWidth: 200.0,
@@ -120,12 +102,34 @@ class BookingPage extends Page<BookingBloc> {
                               bloc.lipaNaMpesa();
                             },
                             child: Text(
-                              "Pay ${bloc.spot.price.cost_price} Kes",
+                              "Pay ${bloc.spot.price.cost_price} Kes with Mpesa",
                               style: TextStyle(
                                   color: Colors.white, fontSize: 20.0),
                             ),
                           ),
-                        )
+                        ),
+                        SizedBox(height: 5,),
+                        Text(
+                          "OR",
+                          style: TextStyle(
+                              color: Colors.black26, fontSize: 20.0),
+                        ),
+                        SizedBox(height: 5,),
+                        bloc.spot.price.cost_price <= walletManager.balance ? ButtonTheme(
+                          minWidth: 200.0,
+                          height: 50.0,
+                          child: RaisedButton(
+                            color: Colors.brown,
+                            onPressed: () {
+                              bloc.lipaNaWallet();
+                            },
+                            child: Text(
+                              "Deduct ${bloc.spot.price.cost_price} Kes from wallet",
+                              style: TextStyle(
+                                  color: Colors.white, fontSize: 20.0),
+                            ),
+                          ),
+                        ) : null
                       ],
                     ),
                   ),

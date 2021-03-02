@@ -207,7 +207,20 @@ class HomePage extends Page<HomeBloc> {
                       ),
                       ListTile(
                         leading: Icon(
-                          Icons.label_outline,
+                          Icons.settings,
+                          size: 35.0,
+                          color: Colors.green,
+                        ),
+                        title: Text('Settings',
+                            style:
+                            TextStyle(fontFamily: 'Nova', fontSize: 20.0)),
+                        onTap: () {
+                          bloc.toSettings();
+                        },
+                      ),
+                      ListTile(
+                        leading: Icon(
+                          Icons.exit_to_app,
                           size: 35.0,
                           color: Colors.green,
                         ),
@@ -261,7 +274,7 @@ class HomePage extends Page<HomeBloc> {
                               SizedBox(width: 10.0),
                               Flexible(
                                 child: Text(
-                                  'Welcome, ${bloc?.user?.firstName ?? ''} ${bloc?.user?.lastName ?? ''} ?',
+                                  'Welcome, ${bloc?.user?.firstName ?? ''} ${bloc?.user?.lastName ?? ''}  🙂',
                                   style: TextStyle(
                                       fontSize: 15.0,
                                       fontWeight: FontWeight.w600),

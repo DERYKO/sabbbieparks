@@ -162,10 +162,12 @@ class DetailPage extends Page<DetailBloc> {
                               ],
                             )),
                       ),
-                      Text(
-                        'Parking Features',
-                        style: TextStyle(
-                            fontSize: 22.0, fontWeight: FontWeight.bold),
+                      Center(
+                        child: Text(
+                          'Parking Features',
+                          style: TextStyle(
+                              fontSize: 16.0, fontWeight: FontWeight.bold,color: Colors.red),
+                        ),
                       ),
                       SizedBox(
                         height: 5.0,
@@ -182,11 +184,13 @@ class DetailPage extends Page<DetailBloc> {
                           : Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
                               children: <Widget>[
-                                Text(
-                                  'No features specified.',
-                                  style: TextStyle(
-                                      fontSize: 18.0,
-                                      fontWeight: FontWeight.bold),
+                                Center(
+                                  child: Text(
+                                    'No features specified.',
+                                    style: TextStyle(
+                                        fontSize: 18.0,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 )
                               ],
                             ),

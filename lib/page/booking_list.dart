@@ -78,7 +78,7 @@ class BookingListPage extends Page<BookingListBloc> {
                       size: 40.0,
                     ),
                     const SizedBox(height: 16),
-                    Text('No records found!!'),
+                    Text("No records found!! ${bloc.bookings.length}"),
                     const SizedBox(height: 16),
                     InkWell(
                       child: Row(
@@ -119,7 +119,7 @@ class BookingListPage extends Page<BookingListBloc> {
     return InkWell(
       borderRadius: BorderRadius.circular(10.0),
       child: Container(
-        height: 100,
+        height: 80,
         decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(color: Colors.blueGrey),
@@ -130,8 +130,8 @@ class BookingListPage extends Page<BookingListBloc> {
             Container(
               width: (MediaQuery.of(context).size.width) * 0.20,
               child: SizedBox(
-                height: 50,
-                width: 50,
+                height: 30,
+                width: 30,
                 child: Image.network(
                   appUrl + booking.vehicle.vehicleType.icon,
                   height: 100,
@@ -159,41 +159,36 @@ class BookingListPage extends Page<BookingListBloc> {
                       color: Colors.black45,
                     ),
                   ),
-                  Text(
-                    booking.vehicle.vehicleType.name,
-                    style: TextStyle(
-                      color: Colors.black45,
-                    ),
-                  ),
                 ],
               ),
             ),
-            DateTime.now().isBefore(DateTime.parse(booking.created_at)
-                    .add(new Duration(days: booking.expiry_time)))
-                ? Container(
-                    child: SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      child: Column(
-                        children: <Widget>[
-                          RaisedButton(
-                            onPressed: () {},
-                            child: Text(
-                              "Checkin",
-                              style: TextStyle(color: Colors.white),
-                            ),
-                            color: Colors.green,
-                          ),
-                          CountdownTimer(
-                            endTime: DateTime.parse(booking.created_at)
-                                .add(new Duration(minutes: booking.expiry_time))
-                                .millisecondsSinceEpoch,
-                            daysSymbol: " days ",
-                          )
-                        ],
-                      ),
-                    ),
-                  )
-                : Container(
+//            DateTime.now().isBefore(DateTime.parse(booking.created_at)
+//                    .add(new Duration(minutes: booking.expiry_time)))
+//                ? Container(
+//                    child: SizedBox(
+//                      width: MediaQuery.of(context).size.width * 0.4,
+//                      child: Column(
+//                        children: <Widget>[
+//                          RaisedButton(
+//                            onPressed: () {},
+//                            child: Text(
+//                              "Checkin",
+//                              style: TextStyle(color: Colors.white),
+//                            ),
+//                            color: Colors.green,
+//                          ),
+//                          CountdownTimer(
+//                            endTime: DateTime.parse(booking.created_at)
+//                                .add(new Duration(minutes: booking.expiry_time))
+//                                .millisecondsSinceEpoch,
+//                            daysSymbol: " days ",
+//                          )
+//                        ],
+//                      ),
+//                    ),
+//                  )
+//                :
+            Container(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: Column(
                       children: <Widget>[
@@ -203,12 +198,12 @@ class BookingListPage extends Page<BookingListBloc> {
                             booking.status != false
                                 ? Icon(
                                     Icons.verified_user,
-                                    size: 30.0,
+                                    size: 20.0,
                                     color: Colors.green,
                                   )
                                 : Icon(
                                     Icons.cancel,
-                                    size: 30.0,
+                                    size: 20.0,
                                     color: Colors.red,
                                   ),
                             SizedBox(
@@ -239,13 +234,14 @@ class BookingListPage extends Page<BookingListBloc> {
                             )
                           ],
                         ),
+                        SizedBox(height: 2,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
                             Text(
-                              'Inconvinience fee - ${booking.inconvenience_fee}',
+                              '${booking.created_at}',
                               style: TextStyle(
-                                  color: Colors.black, fontSize: 18.0),
+                                  color: Colors.blueGrey, fontSize: 18.0),
                             )
                           ],
                         )

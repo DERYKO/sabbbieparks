@@ -45,7 +45,7 @@ class Verification extends Page<VerificationBloc> {
                                 Image.asset(icon, height: 100.0, width: 100.0,color: Colors.white,),
                                 SizedBox(height: 10.0),
                                 Text(
-                                  'SabbieParks',
+                                  'I Park',
                                   style: TextStyle(
                                     color: Colors.white,
                                       fontSize: 35.0,

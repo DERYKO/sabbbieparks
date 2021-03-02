@@ -50,7 +50,7 @@ class Login extends Page<LoginBloc> {
                                 Image.asset(icon, height: 100.0, width: 100.0,color: Colors.white,),
                                 SizedBox(height: 10.0),
                                 Text(
-                                  'IParks',
+                                  'I Park',
                                   style: TextStyle(
                                       color: Colors.white,
                                       fontSize: 35.0,

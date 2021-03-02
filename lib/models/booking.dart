@@ -5,7 +5,7 @@ class Booking {
   Vehicle vehicle;
   String registration_no, model_type, color,created_at;
   int id, expiry_time, inconvenience_fee;
-  bool status;
+  int status;
   Spot spot;
 
   Booking.fromJson(Map<String, dynamic> json) {
