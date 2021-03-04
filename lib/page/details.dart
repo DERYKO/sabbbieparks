@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/material.dart' hide Page hide Page;
 import 'package:flutter/rendering.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -8,25 +9,38 @@ import 'package:sabbieparks/widgets/page.dart';
 import '../widgets/page.dart';
 
 class DetailPage extends Page<DetailBloc> {
-  Widget _buildIcon(int index) {
+  Widget _buildIcon(int index, context) {
     return Container(
+      //margin: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
+      padding: EdgeInsets.symmetric(horizontal: 5, vertical: 2),
       height: 110.0,
-      width: 100.0,
+      width: MediaQuery.of(context).size.width / 2.1,
       decoration: BoxDecoration(
           color: Colors.amber, borderRadius: BorderRadius.circular(10.0)),
-      child: Column(
-        children: <Widget>[
-          Image.network(
-            appUrl + bloc.spot.feature[index].security.icon,
-            width: 100.0,
-            height: 100.0,
-            fit: BoxFit.fill,
-          ),
-          Text(
-            bloc.spot.feature[index].security.name,
-            style: TextStyle(fontSize: 10.0),
-          )
-        ],
+      child: Padding(
+        padding: const EdgeInsets.symmetric(vertical: 5),
+        child: Column(
+          children: <Widget>[
+            Expanded(
+              flex: 10,
+              child: Image.network(
+                appUrl + bloc.spot.feature[index].security.icon,
+                width: 100.0,
+                fit: BoxFit.fill,
+              ),
+            ),
+            Expanded(
+              flex: 2,
+              child: Padding(
+                padding: const EdgeInsets.all(4.0),
+                child: Text(
+                  bloc.spot.feature[index].security.name,
+                  style: TextStyle(fontSize: 10.0),
+                ),
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
@@ -93,52 +107,49 @@ class DetailPage extends Page<DetailBloc> {
                         ),
                       ),
                       Container(
-                        height: MediaQuery.of(context).size.height / 4,
                         decoration: BoxDecoration(color: Colors.white),
                         child: Padding(
                             padding: const EdgeInsets.all(10.0),
                             child: Column(
                               children: <Widget>[
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
                                   children: <Widget>[
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: <Widget>[
-                                        Text(
+                                    Row(
+                                      children: [
+                                        AutoSizeText(
                                             '${bloc.spot.client.name} - ${bloc.spot.parking_spot_code}',
+                                            maxFontSize: 27,
+                                            minFontSize: 20,
                                             style: TextStyle(
-                                                fontSize: 27.0,
                                                 fontWeight: FontWeight.bold)),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        Text(bloc.spot.level3.address,
-                                            style: TextStyle(
-                                                fontSize: 22.0,
-                                                fontWeight: FontWeight.w300)),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
-                                        Text(bloc.time + '/' + bloc.distance,
-                                            style: TextStyle(
-                                                fontSize: 22.0,
-                                                fontWeight: FontWeight.w300)),
-                                        SizedBox(
-                                          height: 5.0,
-                                        ),
                                       ],
                                     ),
-                                    Text(
-                                      'KES ${bloc.spot.price.cost_price}',
-                                      style: TextStyle(
-                                          color: Theme.of(context).primaryColor,
-                                          fontSize: 27.0,
-                                          fontWeight: FontWeight.bold),
-                                    )
+                                    SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Text(bloc.spot.level3.address,
+                                        style: TextStyle(
+                                            fontSize: 22.0,
+                                            fontWeight: FontWeight.w300)),
+                                    SizedBox(
+                                      height: 5.0,
+                                    ),
+                                    Text(bloc.time + '/' + bloc.distance,
+                                        style: TextStyle(
+                                            fontSize: 22.0,
+                                            fontWeight: FontWeight.w300)),
+                                    SizedBox(
+                                      height: 5.0,
+                                    ),
                                   ],
+                                ),
+                                Text(
+                                  'KES ${bloc.spot.price.cost_price}',
+                                  style: TextStyle(
+                                      color: Theme.of(context).primaryColor,
+                                      fontSize: 27.0,
+                                      fontWeight: FontWeight.bold),
                                 ),
                                 Text('${bloc.spot.land_mark}'),
                                 SizedBox(
@@ -166,20 +177,27 @@ class DetailPage extends Page<DetailBloc> {
                         child: Text(
                           'Parking Features',
                           style: TextStyle(
-                              fontSize: 16.0, fontWeight: FontWeight.bold,color: Colors.red),
+                              fontSize: 16.0,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.red),
                         ),
                       ),
                       SizedBox(
                         height: 5.0,
                       ),
                       bloc.spot.feature.length > 0
-                          ? Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: bloc.spot.feature
-                                  .asMap()
-                                  .entries
-                                  .map((MapEntry map) => _buildIcon(map.key))
-                                  .toList(),
+                          ? Padding(
+                              padding: const EdgeInsets.all(4.0),
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: bloc.spot.feature
+                                    .asMap()
+                                    .entries
+                                    .map((MapEntry map) =>
+                                        _buildIcon(map.key, context))
+                                    .toList(),
+                              ),
                             )
                           : Row(
                               crossAxisAlignment: CrossAxisAlignment.center,
