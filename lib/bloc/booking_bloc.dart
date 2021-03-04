@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart' hide Page;
+import 'package:intl/intl.dart';
 import 'package:sabbieparks/api/api.dart';
 import 'package:sabbieparks/dialogs/add_new_vehicle_dialog.dart';
 import 'package:sabbieparks/helpers/wallet_manager.dart';
@@ -24,13 +25,16 @@ class BookingBloc extends Bloc {
   Vehicle userVehicle;
   String radioValue = "booking"; //booking, reserved
   DateTime reservationDate;
+  List<DateTime> pickedDates = [];
 
   @override
   Future<void> initState() async {
+    setInitialPickedDate();
     super.initState();
     await getParkingDetails();
     await getVehicles();
     await getVehicleTypes();
+
     showLoader(false);
   }
 
@@ -160,28 +164,32 @@ class BookingBloc extends Bloc {
   }
 
   selectDate() async {
-    Future<DateTime> selectedDate = showDatePicker(
+    DateTimeRange selectedDate = await showDateRangePicker(
       context: context,
-      initialDate: DateTime.now(),
-      firstDate: DateTime(2018),
+      firstDate: DateTime.now(),
       lastDate: DateTime(2030),
-      builder: (BuildContext context, Widget child) {
-        return Theme(
-          data: ThemeData.dark(),
-          child: child,
-        );
-      },
     );
-    await selectedDate.then((DateTime date) {
-      if (date != null) {
-        reservationDate = date;
-        reserveDateController.text = date.toString();
-      }
-    });
+
+    if (selectedDate != null) {
+      pickedDates[0] = selectedDate.start;
+      pickedDates[1] =
+          selectedDate.end ?? selectedDate.start.add(Duration(minutes: 10));
+    }
+
+    reserveDateController.text =
+        "${DateFormat("MMM d, yyyy").format(pickedDates.first)} - ${DateFormat("MMM d, yyyy").format(pickedDates.last)}";
+    notifyChanges();
   }
 
   onRadioChanged({String newValue}) {
     radioValue = newValue;
     notifyChanges();
+  }
+
+  void setInitialPickedDate() async {
+    pickedDates = [
+      DateTime.now(),
+      DateTime.now().add(Duration(minutes: 10)),
+    ];
   }
 }
