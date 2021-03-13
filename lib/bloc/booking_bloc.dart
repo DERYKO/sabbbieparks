@@ -164,20 +164,20 @@ class BookingBloc extends Bloc {
   }
 
   selectDate() async {
-    DateTimeRange selectedDate = await showDateRangePicker(
-      context: context,
-      firstDate: DateTime.now(),
-      lastDate: DateTime(2030),
-    );
-
-    if (selectedDate != null) {
-      pickedDates[0] = selectedDate.start;
-      pickedDates[1] =
-          selectedDate.end ?? selectedDate.start.add(Duration(minutes: 10));
-    }
-
-    reserveDateController.text =
-        "${DateFormat("MMM d, yyyy").format(pickedDates.first)} - ${DateFormat("MMM d, yyyy").format(pickedDates.last)}";
+//    DateTimeRange selectedDate = await showDateRangePicker(
+//      context: context,
+//      firstDate: DateTime.now(),
+//      lastDate: DateTime(2030),
+//    );
+//
+//    if (selectedDate != null) {
+//      pickedDates[0] = selectedDate.start;
+//      pickedDates[1] =
+//          selectedDate.end ?? selectedDate.start.add(Duration(minutes: 10));
+//    }
+//
+//    reserveDateController.text =
+//        "${DateFormat("MMM d, yyyy").format(pickedDates.first)} - ${DateFormat("MMM d, yyyy").format(pickedDates.last)}";
     notifyChanges();
   }
 

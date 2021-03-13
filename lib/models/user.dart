@@ -15,6 +15,24 @@ class User {
     data['avatar'] = this.avatar;
     return data;
   }
+  factory User.fromMap(Map<String, dynamic> json) => new User(
+      title: json['title'],
+      firstName: json['firstName'],
+      lastName: json['lastName'],
+      email: json['email'],
+      phoneNumber: json['phoneNumber'],
+      avatar: json['avatar'],
+     id: json['id']
+  );
+  Map<String, dynamic> toMap() => {
+        "id":  id,
+        "title": title == null ? null : title,
+        "first_name": firstName == null ? null : firstName,
+        "last_name": lastName == null ? null : lastName,
+        "email": email == null ? null : email,
+        "phone_number": phoneNumber == null ? null : phoneNumber,
+        "avatar": avatar == null ? null : avatar,
+      };
 
   User.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -28,4 +46,10 @@ class User {
 
   User(this.title, this.firstName, this.lastName, this.email, this.phoneNumber,
       this.avatar, this.id);
+
+  @override
+  String toString() {
+    return '{title: $title, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, avatar: $avatar, id: $id}';
+  }
+
 }

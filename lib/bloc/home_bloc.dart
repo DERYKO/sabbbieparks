@@ -36,6 +36,7 @@ import 'package:sabbieparks/page/wallet.dart';
 import 'package:sabbieparks/shared/strings.dart';
 import 'package:sabbieparks/tools/auth_manager.dart';
 import 'package:sabbieparks/widgets/bloc_provider.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'login_bloc.dart';
 import 'package:sabbieparks/helpers/wallet_manager.dart';
 
@@ -62,13 +63,16 @@ class HomeBloc extends Bloc {
   TextEditingController passwordController = TextEditingController();
   final dbHelper = DatabaseHelper.instance;
   int notificationCount;
+  SharedPreferences prefs;
 
   @override
   void initState() async {
     super.initState();
     await fcmMessages();
-    getUserProfile();
   }
+
+
+
 
   Future fcmMessages() async {
     _fcm.configure(
@@ -445,6 +449,7 @@ class HomeBloc extends Bloc {
   toBooking(int id) {
     navigate(page: BookingPage(), bloc: BookingBloc(id));
   }
+
   toSettings() {
     navigate(page: Settings(), bloc: SettingsBloc());
   }
