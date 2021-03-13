@@ -44,8 +44,8 @@ class User {
     avatar = json['avatar'];
   }
 
-  User(this.title, this.firstName, this.lastName, this.email, this.phoneNumber,
-      this.avatar, this.id);
+  User({this.title, this.firstName, this.lastName, this.email, this.phoneNumber,
+      this.avatar, this.id});
 
   @override
   String toString() {

@@ -6,6 +6,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:sabbieparks/bloc/home_bloc.dart';
 import 'package:sabbieparks/helpers/wallet_manager.dart';
 import 'package:sabbieparks/shared/strings.dart';
+import 'package:sabbieparks/tools/auth_manager.dart';
 import 'package:sabbieparks/widgets/page.dart';
 import 'package:search_map_place/search_map_place.dart';
 
@@ -272,13 +273,18 @@ class HomePage extends Page<HomeBloc> {
                                 width: 30,
                               ),
                               SizedBox(width: 10.0),
-                              Flexible(
-                                child: Text(
-                                  'Welcome, ${bloc?.user?.firstName ?? ''} ${bloc?.user?.lastName ?? ''}  🙂',
-                                  style: TextStyle(
-                                      fontSize: 15.0,
-                                      fontWeight: FontWeight.w600),
-                                ),
+                              StreamBuilder<Object>(
+                                stream: authManager.stream,
+                                builder: (context, snapshot) {
+                                  return Flexible(
+                                    child: Text(
+                                      'Welcome, ${authManager?.user?.firstName ?? ''} ${authManager?.user?.lastName ?? ''}  🙂',
+                                      style: TextStyle(
+                                          fontSize: 15.0,
+                                          fontWeight: FontWeight.w600),
+                                    ),
+                                  );
+                                }
                               )
                             ],
                           ),

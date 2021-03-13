@@ -4,9 +4,10 @@ import 'dart:convert';
 import 'package:dio/dio.dart';
 import 'package:sabbieparks/api/api.dart';
 import 'package:sabbieparks/models/user.dart';
+import 'package:sabbieparks/tools/manager.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-class AuthManager {
+class AuthManager extends Manager {
   SharedPreferences prefs;
   User user;
 
@@ -17,8 +18,9 @@ class AuthManager {
   }
   getUser() async {
     prefs = await SharedPreferences.getInstance();
-    var user = prefs.getString('user');
-    user = new User.fromJson(json.decode(user));
+    var profileUser = prefs.getString('user');
+    user = new User.fromMap(json.decode(profileUser));
+    notifyChanges();
   }
 
   logout() async {

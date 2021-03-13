@@ -14,6 +14,7 @@ class SplashBloc extends Bloc {
   }
   checkFirstTimeSetup() async {
     if (await authManager.isLoggedIn()) {
+      await authManager.getUser();
       popAndNavigate(page: HomePage(), bloc: HomeBloc());
     } else {
       popAndNavigate(page: Login(), bloc: LoginBloc());
