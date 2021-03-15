@@ -13,17 +13,18 @@ class LoginBloc extends Bloc {
   void initState() {
     super.initState();
   }
-  attemptLogin(String phone_number) async{
-    try{
-      ProgressDialog pr= new ProgressDialog(context);
+
+  attemptLogin(String phone_number) async {
+    try {
+      ProgressDialog pr = new ProgressDialog(context);
       pr.show();
       Response response = await api.login(phone_number);
       pr.dismiss();
       print(response.data['user']);
       _fcm.subscribeToTopic('user${response.data['user']['id']}');
-      authManager.setUser(response);
+      await authManager.setUser(response);
       navigate(page: Verification(response), bloc: VerificationBloc());
-    }catch(e){
+    } catch (e) {
       print(e.response);
     }
   }
