@@ -214,7 +214,7 @@ class HomePage extends Page<HomeBloc> {
                         ),
                         title: Text('Settings',
                             style:
-                            TextStyle(fontFamily: 'Nova', fontSize: 20.0)),
+                                TextStyle(fontFamily: 'Nova', fontSize: 20.0)),
                         onTap: () {
                           bloc.toSettings();
                         },
@@ -273,19 +273,14 @@ class HomePage extends Page<HomeBloc> {
                                 width: 30,
                               ),
                               SizedBox(width: 10.0),
-                              StreamBuilder<Object>(
-                                stream: authManager.stream,
-                                builder: (context, snapshot) {
-                                  return Flexible(
-                                    child: Text(
-                                      'Welcome, ${authManager?.user?.firstName ?? ''} ${authManager?.user?.lastName ?? ''}  🙂',
-                                      style: TextStyle(
-                                          fontSize: 15.0,
-                                          fontWeight: FontWeight.w600),
-                                    ),
-                                  );
-                                }
-                              )
+                              Flexible(
+                                child: Text(
+                                  'Welcome, ${authManager?.user?.firstName ?? ''} ${authManager?.user?.lastName ?? ''}  🙂',
+                                  style: TextStyle(
+                                      fontSize: 15.0,
+                                      fontWeight: FontWeight.w600),
+                                ),
+                              ),
                             ],
                           ),
                           SingleChildScrollView(

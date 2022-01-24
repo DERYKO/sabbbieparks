@@ -1,8 +1,6 @@
-
 class User {
-  String title, firstName, lastName, email, phoneNumber,avatar;
+  String title, firstName, lastName, email, phoneNumber, avatar;
   int id;
-
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
@@ -15,17 +13,17 @@ class User {
     data['avatar'] = this.avatar;
     return data;
   }
+
   factory User.fromMap(Map<String, dynamic> json) => new User(
       title: json['title'],
-      firstName: json['firstName'],
-      lastName: json['lastName'],
+      firstName: json['first_name'],
+      lastName: json['last_name'],
       email: json['email'],
-      phoneNumber: json['phoneNumber'],
+      phoneNumber: json['phone_number'],
       avatar: json['avatar'],
-     id: json['id']
-  );
+      id: json['id']);
   Map<String, dynamic> toMap() => {
-        "id":  id,
+        "id": id,
         "title": title == null ? null : title,
         "first_name": firstName == null ? null : firstName,
         "last_name": lastName == null ? null : lastName,
@@ -44,12 +42,17 @@ class User {
     avatar = json['avatar'];
   }
 
-  User({this.title, this.firstName, this.lastName, this.email, this.phoneNumber,
-      this.avatar, this.id});
+  User(
+      {this.title,
+      this.firstName,
+      this.lastName,
+      this.email,
+      this.phoneNumber,
+      this.avatar,
+      this.id});
 
   @override
   String toString() {
     return '{title: $title, firstName: $firstName, lastName: $lastName, email: $email, phoneNumber: $phoneNumber, avatar: $avatar, id: $id}';
   }
-
 }
