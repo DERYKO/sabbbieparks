@@ -18,7 +18,7 @@ class LoginBloc extends Bloc {
       ProgressDialog pr= new ProgressDialog(context);
       pr.show();
       Response response = await api.login(phone_number);
-      pr.dismiss();
+      pr.hide();
       print(response.data['user']);
       _fcm.subscribeToTopic('user${response.data['user']['id']}');
       authManager.setUser(response);

@@ -26,7 +26,7 @@ class VerificationBloc extends Bloc {
       ProgressDialog pr = new ProgressDialog(context);
       pr.show();
       Response response = await api.verifyCode(phone, code);
-      pr.dismiss();
+      pr.hide();
       authManager.setToken(response.data['token']);
       if (response.data['user']['first_name'] == null) {
         popAndNavigate(page: WelcomePage(), bloc: WelcomeBloc());

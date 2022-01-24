@@ -3,8 +3,6 @@ import 'package:sabbieparks/bloc/booking_list_bloc.dart';
 import 'package:sabbieparks/models/booking.dart';
 import 'package:sabbieparks/shared/strings.dart';
 import 'package:sabbieparks/widgets/page.dart';
-import 'package:flutter_countdown_timer/countdown_timer.dart';
-
 class BookingListPage extends Page<BookingListBloc> {
   @override
   Widget build(BuildContext context) {
